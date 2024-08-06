@@ -90,7 +90,6 @@ function verOcultar(e) {
     filtros.classList.toggle("oculto");
 }
 
-
 // --------------------------- Funciones de filtros
 function filtrarPorNombre(productos, valorBusqueda) {
     let valorBusquedaLowerCase = valorBusqueda.toLowerCase();
