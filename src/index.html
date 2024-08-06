@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORPACK | Inicio</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./assets/img/logotype/logoOrpack.png" type="image/x-icon">
+
+    <!-- founts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- Link to CSS -->
+    <link href="./style.css" rel="stylesheet">
+    <!-- Link to Tailwind -->
+    <link href="./output.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <header class="sticky top-0 bg-gray-500 border border-b-4 border-gray-500 border-b-blue-900">
+        <div class="flex flex-grow-1 p-4">
+            <div class="size-32 content-center">
+                <img src="./assets/img/logotype/logoOrpack.png" alt="">
+            </div>
+            <div class="flex grow justify-center items-center">
+                <input class="w-96 h-8 rounded-lg border-2" id=buscador type="text" placeholder=" ¿Que está buscando?">
+                <button id="buscar"
+                    class="bg-blue-900 p-1 ml-2 items-center rounded-lg border-2 hover:bg-blue-700 font-bebas"
+                    id="botonBuscar" aria-label="Busqueda"><svg xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-search" width="20" height="20" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg></button>
+            </div>
+            <div id="carrito" class="flex justify-center items-center">
+                <button id="verCarrito" class="bg-blue-900 hover:bg-blue-700 border-2 border-white p-1 rounded-full"
+                    aria-label="Carrito">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
+                        width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 17h-11v-14h-2" />
+                        <path d="M6 5l14 1l-1 7h-13" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="filtros" class="mb-1">
+            <button id="todos"
+                class="felx justify-center items-center bg-blue-900 hover:bg-blue-700 border-2 border-white p-1 pl-2 pr-2 rounded-lg font-bebas text-white ml-2"
+                value="">Todos</button>
+        </div>
+        <div id="alertaCarrito"></div>
+    </header>
+    <main>
+        <div id="paginaProductos">
+            <div class="mt-1 flex justify-center items-center text-7xl">
+                <h1>PRODUCTOS</h1>
+            </div>
+            <div id="alerta"></div>
+            <div id="productos" class="flex justify-around flex-wrap items-center">
+            </div>
+        </div>
+        <div id="paginaCarrito" class="oculto flex flex-col justify-items-end oculto">
+            <h2 class="flex justify-center font-bebas font-semibold text-2xl align-middle">CARRITO</h2>
+            <div id="alertaCompra"></div>
+            <div id="contenedorCarrito"></div>
+            <button id="comprar" class="grow-0 items-center bg-blue-900 hover:bg-blue-700 border-2 border-white p-1 pl-2 pr-2 rounded-lg font-bebas text-white ml-2">COMPRAR</button>
+        </div>
+    </main>
+    <div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
