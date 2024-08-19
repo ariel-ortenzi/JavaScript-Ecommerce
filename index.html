@@ -18,9 +18,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
-    <!-- Link to CSS -->
+    <!-- Link to Toastify styles -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- Link to CSS styles -->
     <link href="./style.css" rel="stylesheet">
-    <!-- Link to Tailwind -->
+    <!-- Link to Tailwind styles -->
     <link href="./output.css" rel="stylesheet">
 
 </head>
@@ -78,12 +80,19 @@
             <h2 class="flex justify-center font-bebas font-semibold text-2xl align-middle">CARRITO</h2>
             <div id="alertaCompra"></div>
             <div id="contenedorCarrito"></div>
+            <div class="btnComprar">
             <button id="comprar"
-                class="grow-0 items-center bg-blue-900 hover:bg-blue-700 border-2 border-white p-1 pl-2 pr-2 rounded-lg font-bebas text-white ml-2">COMPRAR</button>
+                class="grow-0 items-center bg-blue-900 hover:bg-blue-700 p-1 pl-2 pr-2 rounded-lg font-bebas text-white ml-2">COMPRAR</button></div>
         </div>
     </main>
     <div>
     </div>
+
+    <!-- Script for Toastify  -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Script for sweetalert2  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Script for JS  -->
     <script src="./script.js"></script>
 </body>
 

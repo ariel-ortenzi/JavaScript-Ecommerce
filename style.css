@@ -9,7 +9,7 @@
     border: 2px solid rgb(0, 0, 2);
     margin: 2px;
     font-family: "Quicksand", sans-serif;
-    box-shadow: 8px 10px 14px -2px rgba(0,0,0,0.75);
+    box-shadow: 8px 10px 14px -2px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     margin-bottom: 15px;
 }
@@ -21,7 +21,7 @@
     border-radius: 20px;
 }
 
-.producto button{
+.producto button {
     background-color: rgb(30 58 138);
     text-align: center;
     font-family: "Bebas Neue", sans-serif;
@@ -35,7 +35,7 @@
     border: 2px solid black
 }
 
-.producto button:hover{
+.producto button:hover {
     background-color: rgb(29 78 216);
 }
 
@@ -45,13 +45,13 @@ h3 {
     padding: 4px;
 }
 
-#paginaProductos div h1{
+#paginaProductos div h1 {
     font-family: "Bebas Neue", sans-serif;
     font-weight: 700;
     font-size: 70px;
 }
 
-#paginaProductos h1{
+#paginaProductos h1 {
     font-family: "Bebas Neue", sans-serif;
     font-weight: 700;
     font-size: 70px;
@@ -61,7 +61,7 @@ h3 {
     display: none !important;
 }
 
-.mensaje{
+.mensaje {
     font-family: "Bebas Neue", sans-serif;
     font-weight: 700;
     font-size: 70px;
@@ -71,14 +71,14 @@ h3 {
     border: 2px solid rgb(0, 112, 0)
 }
 
-.paginaCarrito .btnComprar{
+.paginaCarrito .btnComprar {
     text-align: center;
     border: 2px solid rgb(255, 255, 255);
     border-radius: 20px;
     background: #15008f;
 }
 
-.mensajeCarrito{
+.mensajeCarrito {
     font-family: "Quicksand", sans-serif;
     font-weight: 700;
     font-size: 15px;
@@ -110,17 +110,130 @@ h3 {
     align-items: center;
 }
 
-.tarjetaCarrito{
+.tarjetaCarrito {
     border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.btnAccionCarrito {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
 }
 
 
 button.sinStock {
-    background-color: rgb(146, 146, 146); 
+    background-color: rgb(146, 146, 146);
     color: rgb(0, 0, 0);
     cursor: not-allowed;
 }
 
 button.sinStock:hover {
-    background-color:rgb(146, 146, 146); 
+    background-color: rgb(146, 146, 146);
+}
+
+.tostada {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    border: 5px solid;
+    border-image: linear-gradient(to right, rgba(0, 212, 255, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(2, 0, 36, 1) 100%) 1;
+    border-radius: 10px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.tostadaCarrito {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(249, 0, 0, 1) 48%, rgba(0, 0, 0, 1) 100%);
+    border: 5px solid;
+    border-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 35%, rgba(249, 0, 0, 1) 100%) 1;
+    border-radius: 10px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.btnEliminar {
+    text-align: center;
+    color: white;
+    padding: 5px;
+    margin-left: 2px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    background: #15008f;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.btnEliminar:hover {
+    background-color: rgb(29 78 216);
+}
+
+.btnResta {
+    text-align: center;
+    color: white;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 2px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    background: #15008f;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.btnResta:hover {
+    background-color: rgb(29 78 216);
+}
+
+.btnSweet {
+    text-align: center;
+    color: white;
+    padding: 5px;
+    margin-left: 2px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    background: #15008f;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+}
+.btnSweet:hover {
+    background-color: rgb(29 78 216);
+}
+
+.btnSuma {
+    text-align: center;
+    color: white;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 2px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    background: #15008f;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+
+}
+
+.btnSuma:hover {
+    background-color: rgb(29 78 216);
+}
+
+.btnComprar {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+}
+
+#comprar {
+    border: 2px solid black
 }

@@ -27,7 +27,7 @@ function principal(productos) {
     crearFiltrosPorCategoria(productos);
 
     let carrito = obtenerCarrito();
-    renderizarCarrito(carrito);
+    renderizarCarrito(carrito, productos);
 
     let input = document.getElementById("buscador");
     let botonBuscar = document.getElementById("buscar");
@@ -45,25 +45,22 @@ function principal(productos) {
     let botonComprar = document.getElementById("comprar");
     botonComprar.addEventListener("click", finalizarCompra);
 }
+let btnComprar = document.getElementById("comprar")
+btnComprar.disable = true;
 
 principal(listaProductos);
 
 
 // --------------------------- Funciones de storage
 function finalizarCompra() {
-    localStorage.removeItem("carrito");
-    renderizarCarrito([]);
-    let alertaCompra = document.getElementById("alertaCompra")
-    alertaCompra.innerHTML = "";
-    let mensaje = document.createElement("div");
-    mensaje.className = "mensaje";
-    mensaje.innerHTML = `
-        <h3>Gracias por su compra!</h3>
-        `;
-    alertaCompra.appendChild(mensaje);
-    setTimeout(() => {
-        alertaCompra.innerHTML = "";
-    }, 4000)
+    let carrito = obtenerCarrito()
+    if (carrito.length === 0){
+        sweetAlert("CARRITO VACÍO", "¡ Porfavor agregue productos al carrito !", "error")
+    } else{
+        sweetAlert("GRACIAS POR SU COMPRA", "¡ Esperamos vuelva pronto !", "success")
+        localStorage.removeItem("carrito");
+        renderizarCarrito([]);
+    }
 }
 
 function obtenerCarrito() {
@@ -74,13 +71,13 @@ function obtenerCarrito() {
     return carrito;
 }
 
-function setearCarrito(carrito) {
-    let carritoJSON = JSON.stringify(carrito);
+function setearCarrito(carrito, productos) {
+    let carritoJSON = JSON.stringify(carrito, productos);
     localStorage.setItem("carrito", carritoJSON);
 }
 
 // --------------------------- Funciones de muestreo
-function verOcultar(e) {
+function verOcultar() {
     let contenedorProductos = document.getElementById("paginaProductos");
     let contenedorCarrito = document.getElementById("paginaCarrito");
     let filtros = document.getElementById("filtros");
@@ -100,13 +97,13 @@ function filtrarPorNombre(productos, valorBusqueda) {
 function crearFiltrosPorCategoria(productos) {
     let categorias = [];
     let contenedorFiltros = document.getElementById("filtros");
-    productos.forEach(producto => {
-        if (!categorias.includes(producto.categoria)) {
-            categorias.push(producto.categoria);
+    productos.forEach(({categoria}) => {
+        if (!categorias.includes(categoria)) {
+            categorias.push(categoria);
 
             let botonFiltro = document.createElement("button");
-            botonFiltro.innerText = producto.categoria;
-            botonFiltro.value = producto.categoria;
+            botonFiltro.innerText = categoria;
+            botonFiltro.value = categoria;
             botonFiltro.classList.add('bg-blue-900', 'hover:bg-blue-700', 'border-2', 'border-white', 'p-1', 'pl-2', 'pr-2', 'rounded-lg', 'font-bebas', 'text-white', 'ml-2',)
             botonFiltro.addEventListener("click", (e) => filtrarPorCategoria(e, productos));
 
@@ -168,34 +165,116 @@ function agregarAlCarrito(e, productos) {
         }
         productoBuscado.stock--;
         setearCarrito(carrito);
-        renderizarCarrito(carrito);
+        renderizarCarrito(carrito, productos);
         crearTarjetasProductos(productos);
-        let alertaCarrito = document.getElementById("alertaCarrito")
-        alertaCarrito.innerHTML = "";
-        let mensajeCarrito = document.createElement("div");
-        mensajeCarrito.className = "mensajeCarrito";
-        mensajeCarrito.innerHTML = `
-            <h4>Agregaste un producto al carrito!</h4>
-            `;
-        alertaCarrito.appendChild(mensajeCarrito);
-        setTimeout(() => {
-            alertaCarrito.innerHTML = "";
-        }, 2000)
-        console.log(productoBuscado)
+        tostada(`SE AGREGÓ ${productoBuscado.nombre} AL CARRITO`, "tostada");
+}
+}
+function renderizarCarrito(carrito, productos) {
+    let contenedorCarrito = document.getElementById("contenedorCarrito");
+    contenedorCarrito.innerHTML = "";
+    carrito.forEach(({nombre, precioUnitario, unidades, subtotal, id}) => {
+        let tarjetaCarrito = document.createElement("div")
+        tarjetaCarrito.className = "tarjetaCarrito"
+        tarjetaCarrito.id = "tc" + id
+        tarjetaCarrito.innerHTML += `
+                <p>${nombre}</p>
+                <p>$ ${precioUnitario}</p>
+                <p>${unidades} un.</p>
+                <p>$ ${subtotal}</p>
+                <div class="btnAccionCarrito">
+                <button id=rs${id} class="btnResta">-</button>
+                <button id=el${id} class="btnEliminar">ELIMINAR</button>
+                <button id=sm${id} class="btnSuma">+</button></div>
+        `;
+        contenedorCarrito.appendChild(tarjetaCarrito)
+
+        let btnEliminar = document.getElementById("el" + id)
+        btnEliminar.addEventListener("click", (e) => eliminarProductoCarrito(e, productos))
+        let btnSuma = document.getElementById("sm" + id);
+        btnSuma.addEventListener("click", (e) => sumarUnidad(e, productos));
+        let btnResta = document.getElementById("rs" + id)
+        btnResta.addEventListener("click", (e) => restarUnidad(e, productos))
+    });
+}
+
+function eliminarProductoCarrito(e, productos) {
+    let id = Number(e.target.id.substring(2))
+    let carrito = obtenerCarrito()
+    let disponibilidad = carrito.find(producto => producto.id === id)
+    let prodOriginal = productos.find(producto => producto.id === id)
+    carrito = carrito.filter(producto => producto.id !== id)
+    setearCarrito(carrito);
+    let eliminarTarjeta = document.getElementById("tc" + id)
+    eliminarTarjeta.remove()
+    prodOriginal.stock += disponibilidad.unidades
+    crearTarjetasProductos(productos);
+}
+
+function sumarUnidad(e, productos) {
+    let id = Number(e.target.id.substring(2))
+    let carrito = obtenerCarrito()
+    let disponibilidad = carrito.find(producto => producto.id === id)
+    let prodOriginal = productos.find(producto => producto.id === id)
+    console.log(prodOriginal)
+    console.log(disponibilidad)
+
+    if (prodOriginal.stock > 0){
+        disponibilidad.unidades++;
+        disponibilidad.subtotal = disponibilidad.unidades * disponibilidad.precioUnitario;
+        prodOriginal.stock--;
+        setearCarrito(carrito);
+        renderizarCarrito(carrito, productos);
+        crearTarjetasProductos(productos);
+        tostada(`SE SUMO UNA UNIDAD DE ${prodOriginal.nombre}`, "tostada")
+    } else {
+        tostada(`NO HAY MAS ${prodOriginal.nombre} EN STOCK`, "tostadaCarrito")
     }
 }
 
-function renderizarCarrito(carrito) {
-    let contenedorCarrito = document.getElementById("contenedorCarrito");
-    contenedorCarrito.innerHTML = "";
-    carrito.forEach(producto => {
-        contenedorCarrito.innerHTML += `
-            <div class=tarjetaCarrito>
-                <p>${producto.nombre}</p>
-                <p>$ ${producto.precioUnitario}</p>
-                <p>${producto.unidades} un.</p>
-                <p>$ ${producto.subtotal}</p>
-            </div>
-        `;
+function restarUnidad(e, productos) {
+    let id = Number(e.target.id.substring(2));
+    let carrito = obtenerCarrito();
+    let disponibilidad = carrito.find(producto => producto.id === id);
+    let prodOriginal = productos.find(producto => producto.id === id);
+
+    if (disponibilidad.unidades > 1){
+        disponibilidad.unidades--;
+        disponibilidad.subtotal = disponibilidad.unidades * disponibilidad.precioUnitario;
+        prodOriginal.stock++;
+        setearCarrito(carrito);
+        renderizarCarrito(carrito, productos);
+        crearTarjetasProductos(productos);
+        tostada(`SE RESTÓ UNA UNIDAD DE ${prodOriginal.nombre}`, "tostada")
+    }
+}
+
+function tostada(text, className) {
+    Toastify({
+        text,
+        className,
+        duration: 1500,
+        close: false,
+        gravity: "bottom",
+        position: "right",
+        stopOnFocus: true,
+        onClick: function(){verOcultar()} // Muestra y/o Oculta el Carrito
+    }).showToast();
+}
+
+function sweetAlert(title, text, icon){
+    Swal.fire({
+        title,
+        text,
+        icon,
+        imageUrl: "./assets/img/logotype/logoOrpack.png",
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        confirmButtonText: "Confirmar",
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: 'btnSweet',  // Elijo la clase para el botón del alert
+        }
     });
 }
