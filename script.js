@@ -161,6 +161,7 @@ function agregarAlCarrito(e, productos) {
                 precioUnitario: productoBuscado.precio,
                 unidades: 1,
                 subtotal: productoBuscado.precio,
+                rutaImagen: productoBuscado.rutaImagen
             });
         }
         productoBuscado.stock--;
@@ -173,11 +174,12 @@ function agregarAlCarrito(e, productos) {
 function renderizarCarrito(carrito, productos) {
     let contenedorCarrito = document.getElementById("contenedorCarrito");
     contenedorCarrito.innerHTML = "";
-    carrito.forEach(({nombre, precioUnitario, unidades, subtotal, id}) => {
+    carrito.forEach(({nombre, precioUnitario, unidades, subtotal, id, rutaImagen}) => {
         let tarjetaCarrito = document.createElement("div")
         tarjetaCarrito.className = "tarjetaCarrito"
         tarjetaCarrito.id = "tc" + id
         tarjetaCarrito.innerHTML += `
+                <img class="imgCarrito" src="./assets/img/products/${rutaImagen}">
                 <p>${nombre}</p>
                 <p>$ ${precioUnitario}</p>
                 <p>${unidades} un.</p>
