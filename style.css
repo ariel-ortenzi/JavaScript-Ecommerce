@@ -247,3 +247,9 @@ button.sinStock:hover {
 #comprar {
     border: 2px solid black
 }
+
+@media (max-width: 670px) {
+    #buscador{
+        width: 80%;
+    }
+}
